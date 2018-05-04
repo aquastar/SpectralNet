@@ -14,7 +14,7 @@ params = {
     'siam_batch_size': 128,
 
     'n_clusters': 4,
-    'use_code_space': True,
+    'use_code_space': False,
     'affinity': 'siamese',
     'n_nbrs': 30,
     'scale_nbr': 10,
