@@ -2,6 +2,7 @@ import sys, os
 import _pickle as pk
 
 # add directories in src/ to path
+from applications.spectralnet import run_net
 from core.data import get_data
 
 sys.path.insert(0, '/home/zc/PycharmProjects/SpectralNet/src')
@@ -42,16 +43,18 @@ params = {
 }
 
 # load dataset
-old_x_train, x_train, x_test, old_y_train, y_train, y_test = pk.load(open('../data/protest/old_X_train.pk', 'rb')), \
-                                                             pk.load(open('data/protest/X_train.pk', 'rb')), \
-                                                             pk.load(open('data/protest/X_test.pk', 'rb')), \
-                                                             pk.load(open('data/protest/old_Y_train.pk', 'rb')), \
-                                                             pk.load(open('data/protest/Y_train.pk', 'rb')), \
-                                                             pk.load(open('data/protest/Y_test.pk', 'rb'))
+old_x_train, x_train, x_test, old_y_train, y_train, y_test = pk.load(open('../../data/protest/old_X_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/X_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/X_test.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/old_Y_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/Y_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/Y_test.pk', 'rb'))
 
 new_dataset_data = (x_train, x_test, y_train, y_test)
 
 # preprocess dataset
 data = get_data(params, new_dataset_data)
 
-pk.dump(data, open('../new_data.pk', 'wb'))
+# pk.dump(data, open('../new_data.pk', 'wb'))
+
+x_spectralnet, y_spectralnet = run_net(data, params)
