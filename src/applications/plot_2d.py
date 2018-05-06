@@ -41,6 +41,8 @@ def process(x_spectralnet, y_spectralnet, data, params):
                     alpha=0.5, s=20, cmap='rainbow', c=y_spectral_clustering, lw=0)
     ax2.set_title("x colored by spectral clustering")
 
+    plt.savefig('cluster.png', dpi=300)
+
     # plot histogram of eigenvectors
     fig3 = plt.figure()
     ax1 = fig3.add_subplot(212)

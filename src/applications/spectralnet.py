@@ -4,6 +4,7 @@ spectralnet.py: contains run function for spectralnet
 import sys, os, pickle
 import tensorflow as tf
 import numpy as np
+import _pickle as pk
 import traceback
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
 
@@ -106,6 +107,9 @@ def run_net(data, params):
     kmeans_assignments, km = get_cluster_sols(x_spectralnet, ClusterClass=KMeans, n_clusters=params['n_clusters'], init_args={'n_init':10})
     y_spectralnet, _ = get_y_preds(kmeans_assignments, y, params['n_clusters'])
     print_accuracy(kmeans_assignments, y, params['n_clusters'])
+    pk.dump(kmeans_assignments, open('kmeans_assignments.pk','w'))
+    pk.dump(y, open('y.pk','w'))
+
     from sklearn.metrics import normalized_mutual_info_score as nmi
     nmi_score = nmi(kmeans_assignments, y)
     print('NMI: ' + str(np.round(nmi_score, 3)))

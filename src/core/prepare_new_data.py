@@ -1,11 +1,12 @@
 import sys, os
 import _pickle as pk
 
+sys.path.insert(0, '/home/zc/PycharmProjects/SpectralNet/src')
+
 # add directories in src/ to path
 from applications.spectralnet import run_net
 from core.data import get_data
 
-sys.path.insert(0, '/home/zc/PycharmProjects/SpectralNet/src')
 
 # define hyperparameters
 params = {
@@ -14,12 +15,12 @@ params = {
     'precomputedKNNPath': '',
     'siam_batch_size': 128,
 
-    'n_clusters': 4,
+    'n_clusters': 2,
     'use_code_space': False,
     'affinity': 'siamese',
-    'n_nbrs': 30,
-    'scale_nbr': 10,
-    'siam_k': 100,
+    'n_nbrs': 15,
+    'scale_nbr': 5,
+    'siam_k': 50,
     'siam_ne': 20,
     'spec_ne': 300,
     'siam_lr': 1e-3,
@@ -40,15 +41,20 @@ params = {
     ],
     'use_approx': True,
     'use_all_data': True,
+    'generalization_metrics': True,
+
+    # 'train_set_fraction': .8,
+    # 'train_labeled_fraction': .2,
+
 }
 
 # load dataset
-old_x_train, x_train, x_test, old_y_train, y_train, y_test = pk.load(open('../../data/protest/old_X_train.pk', 'rb')), \
-                                                             pk.load(open('../../data/protest/X_train.pk', 'rb')), \
-                                                             pk.load(open('../../data/protest/X_test.pk', 'rb')), \
-                                                             pk.load(open('../../data/protest/old_Y_train.pk', 'rb')), \
-                                                             pk.load(open('../../data/protest/Y_train.pk', 'rb')), \
-                                                             pk.load(open('../../data/protest/Y_test.pk', 'rb'))
+old_x_train, x_train, x_test, old_y_train, y_train, y_test = pk.load(open('../../data/protest/i_old_X_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/i_X_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/i_X_test.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/i_old_Y_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/i_Y_train.pk', 'rb')), \
+                                                             pk.load(open('../../data/protest/i_Y_test.pk', 'rb'))
 
 new_dataset_data = (x_train, x_test, y_train, y_test)
 
